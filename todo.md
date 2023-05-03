@@ -56,3 +56,15 @@
 
 -   Modal
 -   To-Do List
+
+### Less 2
+
+-   onChange vs control form
+-   onSubmit
+-   class Form
+-   form reset
+-   checkBox
+-   radio
+    -   checked
+    -   value
+-   add todo
