@@ -1,19 +1,13 @@
 import { Component } from 'react'
 
-// function Func({name,type='text'}) {
-
-// }
-
 class FormLogin extends Component {
-	// static defaultProps = {
-	// 	type: 'text',
-	// }
 	state = {
 		email: '',
 		password: '',
 		isChecked: false,
 		gender: '',
 	}
+
 	handleChange = ({ target: { value, name } }) => {
 		this.setState({
 			[name]: value,
@@ -38,9 +32,6 @@ class FormLogin extends Component {
 		this.props.close()
 	}
 	handleCheck = ({ target: { checked } }) => {
-		// this.setState({
-		// 	isChecked: checked,
-		// })
 		this.setState({
 			isChecked: !this.state.isChecked,
 		})

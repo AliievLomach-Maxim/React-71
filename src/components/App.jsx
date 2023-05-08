@@ -1,9 +1,9 @@
-import ToDoList from './ToDoList/ToDoList'
+// import ToDoList from './ToDoList/ToDoList'
 import Modal from './Modal/Modal'
-// import Counter from './Counter/Counter'
+import Counter from './Counter/Counter'
 import Header from './Header/Header'
 import { Component } from 'react'
-import Parent from './Parent/Parent'
+// import Parent from './Parent/Parent'
 import FormLogin from './FormLogin/FormLogin'
 
 class App extends Component {
@@ -28,8 +28,8 @@ class App extends Component {
 		return (
 			<div className='container'>
 				<Header open={this.openModal} />
-				{/* <Counter /> */}
-				<ToDoList />
+				<Counter />
+				{/* <ToDoList /> */}
 
 				{/* <Parent close={this.closeModal} isOpen={this.state.isShowModal}>
 					Some
