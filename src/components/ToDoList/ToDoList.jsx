@@ -71,36 +71,36 @@ class ToDoList extends Component {
 
 	render() {
 		return (
-			this.state.todoList.length && (
-				<>
-					{this.state.isCreated && (
-						<div className='alert alert-primary' role='alert'>
-							Created to-do successfully!
-						</div>
-					)}
-					{this.state.isDelete && (
-						<div className='alert alert-danger' role='alert'>
-							Deleted to-do successfully!
-						</div>
-					)}
-					<form onSubmit={this.handleSubmit}>
-						<div className='mb-3'>
-							<label
-								htmlFor='exampleInputEmail1'
-								className='form-label'
-							>
-								To-Do Name:
-							</label>
-							<input
-								name='nameTodo'
-								type='text'
-								className='form-control'
-								onChange={this.handleChange}
-								value={this.state.nameTodo}
-							/>
-						</div>
-					</form>
-					<h1>My To-Do list</h1>
+			<>
+				{this.state.isCreated && (
+					<div className='alert alert-primary' role='alert'>
+						Created to-do successfully!
+					</div>
+				)}
+				{this.state.isDelete && (
+					<div className='alert alert-danger' role='alert'>
+						Deleted to-do successfully!
+					</div>
+				)}
+				<form onSubmit={this.handleSubmit}>
+					<div className='mb-3'>
+						<label
+							htmlFor='exampleInputEmail1'
+							className='form-label'
+						>
+							To-Do Name:
+						</label>
+						<input
+							name='nameTodo'
+							type='text'
+							className='form-control'
+							onChange={this.handleChange}
+							value={this.state.nameTodo}
+						/>
+					</div>
+				</form>
+				<h1>My To-Do list</h1>
+				{this.state.todoList.length > 0 && (
 					<ul className='list-group list-group-flush'>
 						{this.state.todoList.map((todo) => (
 							<ToDo
@@ -111,8 +111,8 @@ class ToDoList extends Component {
 							/>
 						))}
 					</ul>
-				</>
-			)
+				)}
+			</>
 		)
 	}
 }
