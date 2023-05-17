@@ -1,15 +1,16 @@
 import { useState } from 'react'
-import ToDoList from './ToDoList/ToDoList'
+// import ToDoList from './ToDoList/ToDoList'
 import Modal from './Modal/Modal'
 // import Counter from './Counter/Counter'
 import Header from './Header/Header'
 // import Parent from './Parent/Parent'
 import FormLogin from './FormLogin/FormLogin'
-import Search from './Search/Search'
-import ContentInfo from './ContentInfo/ContentInfo'
+// import Search from './Search/Search'
+// import ContentInfo from './ContentInfo/ContentInfo'
 // import Avatar from '../image.svg'
 
 import React from 'react'
+import TestUseMemo from './TestUseMemo/TestUseMemo'
 
 const App = () => {
 	const [isShowModal, setIsShowModal] = useState(false)
@@ -47,10 +48,10 @@ const App = () => {
 			<Header open={openModal} />
 			{/* <img src={Avatar} alt="" /> */}
 			{/* <Counter /> */}
-			<ToDoList />
-
-			<Search handleSearch={handleSearch} />
-			<ContentInfo searchText={searchText} />
+			{/* <ToDoList /> */}
+			<TestUseMemo />
+			{/* <Search handleSearch={handleSearch} />
+			<ContentInfo searchText={searchText} /> */}
 			{isShowModal && (
 				<Modal close={closeModal}>
 					<FormLogin close={closeModal} createUser={createUser} />
