@@ -15,25 +15,11 @@ const ToDoList = () => {
 		const localData = localStorage.getItem('todo')
 		if (localData) {
 			setTodoList(JSON.parse(localData))
-			// this.setState({ todoList: JSON.parse(localData) })
 		}
 	}, [])
 
 	useEffect(() => {
 		localStorage.setItem('todo', JSON.stringify(todoList))
-
-		// if (prevState.todoList.length < this.state.todoList.length) {
-		// 	this.setState({ isCreated: true })
-		// 	setTimeout(() => {
-		// 		this.setState({ isCreated: false })
-		// 	}, 1500)
-		// }
-		// if (prevState.todoList.length > this.state.todoList.length) {
-		// 	this.setState({ isDelete: true })
-		// 	setTimeout(() => {
-		// 		this.setState({ isDelete: false })
-		// 	}, 1500)
-		// }
 	}, [todoList])
 
 	const handleCheck = (id) => {
@@ -46,7 +32,6 @@ const ToDoList = () => {
 
 	const handleChange = ({ target }) => {
 		setNameTodo(target.value)
-		// this.setState({ nameTodo: target.value })
 	}
 
 	const handleSubmit = (e) => {
@@ -63,34 +48,15 @@ const ToDoList = () => {
 		})
 		setIsCreated(true)
 		setTimeout(() => {
-			// this.setState({ isCreated: false })
 			setIsCreated(false)
 		}, 1500)
-		// this.setState((prev) => {
-		// 	return {
-		// 		todoList: [
-		// 			...prev.todoList,
-		// 			{
-		// 				id: nanoid(),
-		// 				title: this.state.nameTodo,
-		// 				completed: false,
-		// 			},
-		// 		],
-		// 	}
-		// })
 		setNameTodo('')
-		// this.setState({ nameTodo: '' })
 	}
 
 	const handleDelete = (id) => {
 		setTodoList((prev) => prev.filter((el) => el.id !== id))
-		// this.setState((prev) => ({
-		// 	todoList: prev.todoList.filter((el) => el.id !== id),
-		// }))
-		// this.setState({ isDelete: true })
 		setIsDeleted(true)
 		setTimeout(() => {
-			// this.setState({ isDelete: false })
 			setIsDeleted(false)
 		}, 1500)
 	}
