@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo, useState } from 'react'
 
 function complexCompute(number) {
-	console.log('complex :>> ')
-	for (let i = 0; i < 1000000000; i++) {}
+	// console.log('complex :>> ')
+	// for (let i = 0; i < 1000000000; i++) {}
 	return number * 2
 }
 
@@ -13,7 +13,7 @@ const TestUseMemo = () => {
 	const styled = { color: colored ? 'red' : 'white' }
 
 	// const computed = complexCompute(total)
-	const computed = useCallback(() => {
+	const computed = useMemo(() => {
 		return complexCompute(total)
 	}, [total])
 
