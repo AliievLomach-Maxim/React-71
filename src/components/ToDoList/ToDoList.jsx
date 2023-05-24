@@ -1,15 +1,30 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ToDo from '../ToDo/ToDo'
 // import todo from '../../todo.json'
 import { nanoid } from 'nanoid'
 
 import React from 'react'
+import FormCreate from './FormCreate'
+import FormFilter from './FormFilter'
+import { useSearchParams } from 'react-router-dom'
 
 const ToDoList = () => {
 	const [todoList, setTodoList] = useState([])
-	const [nameTodo, setNameTodo] = useState('')
+	const [filteredList, setFilteredList] = useState(null)
 	const [isCreated, setIsCreated] = useState(false)
 	const [isDeleted, setIsDeleted] = useState(false)
+	const [searchParams, setSearchParams] = useSearchParams()
+
+	// const filter = useMemo(
+	// 	() => searchParams.get('filter') ?? '',
+	// 	[searchParams]
+	// )
+	const { filter, page } = useMemo(
+		() => Object.fromEntries([...searchParams]),
+		[searchParams]
+	)
+	// console.log('page :>> ', page)
+	// console.log('searchParams :>> ', Object.fromEntries([...searchParams]))
 
 	useEffect(() => {
 		const localData = localStorage.getItem('todo')
@@ -22,6 +37,21 @@ const ToDoList = () => {
 		localStorage.setItem('todo', JSON.stringify(todoList))
 	}, [todoList])
 
+	useEffect(() => {
+		!filter && setSearchParams({})
+	}, [filter, setSearchParams])
+
+	useEffect(() => {
+		todoList.length &&
+			setFilteredList(
+				todoList.filter((todo) =>
+					todo.title
+						.toLowerCase()
+						.includes(filter ? filter.toLowerCase() : '')
+				)
+			)
+	}, [filter, todoList])
+
 	const handleCheck = (id) => {
 		setTodoList((prev) => {
 			return prev.map((el) =>
@@ -30,12 +60,7 @@ const ToDoList = () => {
 		})
 	}
 
-	const handleChange = ({ target }) => {
-		setNameTodo(target.value)
-	}
-
-	const handleSubmit = (e) => {
-		e.preventDefault()
+	const submit = (nameTodo) => {
 		setTodoList((prev) => {
 			return [
 				...prev,
@@ -50,7 +75,6 @@ const ToDoList = () => {
 		setTimeout(() => {
 			setIsCreated(false)
 		}, 1500)
-		setNameTodo('')
 	}
 
 	const handleDelete = (id) => {
@@ -73,24 +97,12 @@ const ToDoList = () => {
 					Deleted to-do successfully!
 				</div>
 			)}
-			<form onSubmit={handleSubmit}>
-				<div className='mb-3'>
-					<label htmlFor='exampleInputEmail1' className='form-label'>
-						To-Do Name:
-					</label>
-					<input
-						name='nameTodo'
-						type='text'
-						className='form-control'
-						onChange={handleChange}
-						value={nameTodo}
-					/>
-				</div>
-			</form>
+			<FormFilter filter={filter} setSearchParams={setSearchParams} />
+			<FormCreate submit={submit} />
 			<h1>My To-Do list</h1>
-			{todoList.length > 0 && (
+			{filteredList?.length > 0 && (
 				<ul className='list-group list-group-flush'>
-					{todoList.map((todo) => (
+					{filteredList.map((todo) => (
 						<ToDo
 							handleDelete={handleDelete}
 							check={handleCheck}

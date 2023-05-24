@@ -158,3 +158,13 @@
 -   global save search result <Context/>
 -   PageDetails for news
 -   useParams
+
+### Less 2
+
+-   useSearchParams
+-   objectFromEntries
+-   BackBtn with useLocation
+-   location.state
+-   lazy & suspense
+-   loginPage
+-   PrivateRoute
