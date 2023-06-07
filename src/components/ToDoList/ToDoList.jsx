@@ -7,35 +7,37 @@ import React from 'react'
 import FormCreate from './FormCreate'
 import FormFilter from './FormFilter'
 import { useSearchParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { todoListSelector } from '../../store/todo/selectors'
+import { createTodoAction } from '../../store/todo/actions'
+import { createTodo } from '../../store/todo/todoSlice'
 
 const ToDoList = () => {
-	const [todoList, setTodoList] = useState([])
+	// const [todoList, setTodoList] = useState([])
+	const dispatch = useDispatch()
+
+	const { todoList } = useSelector(todoListSelector)
+
 	const [filteredList, setFilteredList] = useState(null)
 	const [isCreated, setIsCreated] = useState(false)
 	const [isDeleted, setIsDeleted] = useState(false)
 	const [searchParams, setSearchParams] = useSearchParams()
 
-	// const filter = useMemo(
-	// 	() => searchParams.get('filter') ?? '',
-	// 	[searchParams]
-	// )
 	const { filter, page } = useMemo(
 		() => Object.fromEntries([...searchParams]),
 		[searchParams]
 	)
-	// console.log('page :>> ', page)
-	// console.log('searchParams :>> ', Object.fromEntries([...searchParams]))
 
-	useEffect(() => {
-		const localData = localStorage.getItem('todo')
-		if (localData) {
-			setTodoList(JSON.parse(localData))
-		}
-	}, [])
+	// useEffect(() => {
+	// 	const localData = localStorage.getItem('todo')
+	// 	if (localData) {
+	// 		setTodoList(JSON.parse(localData))
+	// 	}
+	// }, [])
 
-	useEffect(() => {
-		localStorage.setItem('todo', JSON.stringify(todoList))
-	}, [todoList])
+	// useEffect(() => {
+	// 	localStorage.setItem('todo', JSON.stringify(todoList))
+	// }, [todoList])
 
 	useEffect(() => {
 		!filter && setSearchParams({})
@@ -52,38 +54,39 @@ const ToDoList = () => {
 			)
 	}, [filter, todoList])
 
-	const handleCheck = (id) => {
-		setTodoList((prev) => {
-			return prev.map((el) =>
-				el.id === id ? { ...el, completed: !el.completed } : el
-			)
-		})
-	}
+	// const handleCheck = (id) => {
+	// 	setTodoList((prev) => {
+	// 		return prev.map((el) =>
+	// 			el.id === id ? { ...el, completed: !el.completed } : el
+	// 		)
+	// 	})
+	// }
 
 	const submit = (nameTodo) => {
-		setTodoList((prev) => {
-			return [
-				...prev,
-				{
-					id: nanoid(),
-					title: nameTodo,
-					completed: false,
-				},
-			]
-		})
+		// setTodoList((prev) => {
+		// 	return [
+		// 		...prev,
+		// 		{
+		// 			id: nanoid(),
+		// 			title: nameTodo,
+		// 			completed: false,
+		// 		},
+		// 	]
+		// })
+		dispatch(createTodo(nameTodo))
 		setIsCreated(true)
 		setTimeout(() => {
 			setIsCreated(false)
 		}, 1500)
 	}
 
-	const handleDelete = (id) => {
-		setTodoList((prev) => prev.filter((el) => el.id !== id))
-		setIsDeleted(true)
-		setTimeout(() => {
-			setIsDeleted(false)
-		}, 1500)
-	}
+	// const handleDelete = (id) => {
+	// 	setTodoList((prev) => prev.filter((el) => el.id !== id))
+	// 	setIsDeleted(true)
+	// 	setTimeout(() => {
+	// 		setIsDeleted(false)
+	// 	}, 1500)
+	// }
 
 	return (
 		<>
@@ -104,8 +107,8 @@ const ToDoList = () => {
 				<ul className='list-group list-group-flush'>
 					{filteredList.map((todo) => (
 						<ToDo
-							handleDelete={handleDelete}
-							check={handleCheck}
+							// handleDelete={handleDelete}
+							// check={handleCheck}
 							key={todo.id}
 							todo={todo}
 						/>

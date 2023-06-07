@@ -1,11 +1,5 @@
-import { DECREMENT, INCREMENT, SETSTEP } from './types'
+import { createAction } from '@reduxjs/toolkit'
 
-export function setStepAction(value) {
-	return { type: SETSTEP, payload: Number(value) }
-}
-export function incrementAction(step) {
-	return { type: INCREMENT, payload: step }
-}
-export function decrementAction(step) {
-	return { type: DECREMENT, payload: step }
-}
+export const incrementAction = createAction('INCREMENT')
+export const decrementAction = createAction('DECREMENT')
+export const setStepAction = createAction('SETSTEP')
