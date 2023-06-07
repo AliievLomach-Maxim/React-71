@@ -1,7 +1,20 @@
-import { createStore } from 'redux'
 import { reducer } from './reducer'
+import { configureStore } from '@reduxjs/toolkit'
 
-export const store = createStore(reducer)
+import {
+	persistStore,
+	//  persistReducer
+} from 'redux-persist'
+// import storage from 'redux-persist/lib/storage'
 
-// store.dispatch({ type: 'create', payload: 1 })
-// console.log('store :>> ', store.getState())
+// const persistConfig = {
+// 	key: 'todo',
+// 	storage,
+// 	blacklist: ['counter'],
+// }
+
+// const persistedReducer = persistReducer(persistConfig, reducer)
+
+export const store = configureStore({ reducer })
+
+export const persistor = persistStore(store)

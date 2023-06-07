@@ -1,4 +1,4 @@
 export const initialState = {
-	todo: [],
-	filteredTodo: [],
+	todoList: [],
+	filteredTodoList: [],
 }
