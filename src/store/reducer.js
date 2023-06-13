@@ -1,6 +1,7 @@
 // import { combineReducers } from 'redux'
 // import { todoReducer } from './todo/todoReducer'
 import { counterReducer } from './counter/counterReducer'
+import { productsReducer } from './products/products'
 import { todoReducer } from './todo/todoSlice'
 
 import { persistReducer } from 'redux-persist'
@@ -25,6 +26,7 @@ const persistedReducerCounter = persistReducer(
 export const reducer = {
 	todo: persistedReducerTodo,
 	counter: persistedReducerCounter,
+	products: productsReducer,
 }
 
 // export const reducer = combineReducers({
