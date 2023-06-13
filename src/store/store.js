@@ -1,19 +1,19 @@
 import { reducer } from './reducer'
 import { configureStore } from '@reduxjs/toolkit'
 
-import {
-	persistStore,
-	//  persistReducer
-} from 'redux-persist'
-// import storage from 'redux-persist/lib/storage'
+import { persistStore } from 'redux-persist'
 
-// const persistConfig = {
-// 	key: 'todo',
-// 	storage,
-// 	blacklist: ['counter'],
+// const customMiddleware = (store) => {
+// 	return (next) => {
+// 		return (action) => {
+// 			if (typeof action === 'function') {
+// 				action(store.dispatch)
+// 				return
+// 			}
+// 			return next(action)
+// 		}
+// 	}
 // }
-
-// const persistedReducer = persistReducer(persistConfig, reducer)
 
 export const store = configureStore({ reducer })
 
