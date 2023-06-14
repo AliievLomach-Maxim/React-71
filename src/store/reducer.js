@@ -1,35 +1,11 @@
-// import { combineReducers } from 'redux'
-// import { todoReducer } from './todo/todoReducer'
 import { counterReducer } from './counter/counterReducer'
 import { productsReducer } from './products/products'
 import { todoReducer } from './todo/todoSlice'
-
-import { persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-
-const persistConfigTodo = {
-	key: 'todo',
-	storage,
-}
-
-const persistConfigCounter = {
-	key: 'counter',
-	storage,
-}
-
-const persistedReducerTodo = persistReducer(persistConfigTodo, todoReducer)
-const persistedReducerCounter = persistReducer(
-	persistConfigCounter,
-	counterReducer
-)
+import { productsApi } from './productsApi'
 
 export const reducer = {
-	todo: persistedReducerTodo,
-	counter: persistedReducerCounter,
+	todo: todoReducer,
+	counter: counterReducer,
 	products: productsReducer,
+	[productsApi.reducerPath]: productsApi.reducer,
 }
-
-// export const reducer = combineReducers({
-// 	todo: todoReducer,
-// 	counter: counterReducer,
-// })
