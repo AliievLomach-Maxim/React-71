@@ -1,6 +1,11 @@
-import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { logOut } from '../../store/auth/slice'
 
 const Header = ({ open }) => {
+	const { access_token: isAuth, profile } = useSelector((state) => state.auth)
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
 	return (
 		<nav className='navbar bg-dark mb-3 navbar-expand-lg'>
 			<div className='container-fluid'>
@@ -25,8 +30,17 @@ const Header = ({ open }) => {
 						Products
 					</NavLink>
 				</div>
+				{profile && <h4 className='text-white'>{profile.name}</h4>}
 				<button className='btn btn-outline-success' onClick={open}>
 					Open Modal
+				</button>
+				<button
+					className='btn  btn-outline-success'
+					onClick={() =>
+						isAuth ? dispatch(logOut()) : navigate('/login')
+					}
+				>
+					{isAuth ? 'Log Out' : 'Log In'}
 				</button>
 			</div>
 		</nav>
