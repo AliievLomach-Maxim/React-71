@@ -33,6 +33,14 @@ const SignUpPage = () => {
 
 	return (
 		<div className='container mt-3'>
+			<button
+				className='btn btn-primary m-3'
+				onClick={() => {
+					navigate('/')
+				}}
+			>
+				Home
+			</button>
 			<form onSubmit={handleSubmit}>
 				<div className='mb-3'>
 					<label htmlFor='exampleInputName' className='form-label'>

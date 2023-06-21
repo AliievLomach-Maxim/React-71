@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
-import { login } from '../../api/auth'
+// import { login } from '../../api/auth'
 import { loginThunk } from '../../store/auth/thunks'
 import { useDispatch, useSelector } from 'react-redux'
 
 const LoginPage = () => {
-	const isAuth = useSelector((state) => state.auth.access_token)
+	// const isAuth = useSelector((state) => state.auth.access_token)
 
 	const [password, setPassword] = useState('')
 	const [email, setEmail] = useState('')
@@ -18,22 +18,50 @@ const LoginPage = () => {
 	const handleChange = ({ target: { name, value } }) => {
 		name === 'email' ? setEmail(value) : setPassword(value)
 	}
-	const handleSubmit = (e) => {
+	// const handleSubmit = (e) => {
+	// 	e.preventDefault()
+	// 	dispatch(
+	// 		loginThunk({
+	// 			email,
+	// 			password,
+	// 		})
+	// 	)
+	// 		.unwrap()
+	// 		.then(() => {
+	// 			navigate('/')
+	// 		})
+	// 		.catch((error) => toast.error(error))
+	// }
+	const handleSubmit = async (e) => {
 		e.preventDefault()
-		dispatch(
-			loginThunk({
-				email,
-				password,
-			})
-		)
+		try {
+			await dispatch(
+				loginThunk({
+					email,
+					password,
+				})
+			).unwrap()
+
+			// navigate('/')
+		} catch (error) {
+			toast.error(error)
+		}
 	}
 
-	useEffect(() => {
-		isAuth && navigate('/')
-	}, [isAuth, navigate])
+	// useEffect(() => {
+	// 	isAuth && navigate('/')
+	// }, [isAuth, navigate])
 
 	return (
 		<div className='container mt-3'>
+			<button
+				className='btn btn-primary m-3'
+				onClick={() => {
+					navigate('/')
+				}}
+			>
+				Home
+			</button>
 			<form onSubmit={handleSubmit}>
 				<div className='mb-3'>
 					<label htmlFor='exampleInputEmail1' className='form-label'>

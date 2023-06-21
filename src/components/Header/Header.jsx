@@ -31,9 +31,6 @@ const Header = ({ open }) => {
 					</NavLink>
 				</div>
 				{profile && <h4 className='text-white'>{profile.name}</h4>}
-				<button className='btn btn-outline-success' onClick={open}>
-					Open Modal
-				</button>
 				<button
 					className='btn  btn-outline-success'
 					onClick={() =>
