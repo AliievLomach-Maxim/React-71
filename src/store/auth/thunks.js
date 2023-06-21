@@ -1,13 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { getProfile, login } from '../../api/auth'
+import { logOut } from './slice'
 
 export const profileThunk = createAsyncThunk(
 	'auth/profile',
-	async (_, { rejectWithValue }) => {
+	async (_, { rejectWithValue, dispatch }) => {
 		try {
 			const data = await getProfile()
 			return data
 		} catch (error) {
+			dispatch(logOut())
 			return rejectWithValue(error.response.data.message)
 		}
 	}
