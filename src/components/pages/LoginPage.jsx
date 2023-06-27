@@ -1,56 +1,52 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
-// import { login } from '../../api/auth'
-import { loginThunk } from '../../store/auth/thunks'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAuth } from '../../context/authContext'
 
 const LoginPage = () => {
-	// const isAuth = useSelector((state) => state.auth.access_token)
-
+	const { login, isLoading, error } = useAuth()
 	const [password, setPassword] = useState('')
 	const [email, setEmail] = useState('')
 
 	const navigate = useNavigate()
 
-	const dispatch = useDispatch()
-
 	const handleChange = ({ target: { name, value } }) => {
 		name === 'email' ? setEmail(value) : setPassword(value)
 	}
-	// const handleSubmit = (e) => {
-	// 	e.preventDefault()
-	// 	dispatch(
-	// 		loginThunk({
-	// 			email,
-	// 			password,
-	// 		})
-	// 	)
-	// 		.unwrap()
-	// 		.then(() => {
-	// 			navigate('/')
-	// 		})
-	// 		.catch((error) => toast.error(error))
-	// }
+
+	useEffect(() => {
+		error && toast.error(error.data.message)
+	}, [error])
+
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		try {
-			await dispatch(
-				loginThunk({
-					email,
-					password,
-				})
-			).unwrap()
-
-			// navigate('/')
-		} catch (error) {
-			toast.error(error)
-		}
+		login({
+			email,
+			password,
+		})
 	}
+	// const handleSubmit = async (e) => {
+	// 	e.preventDefault()
+	// 	try {
+	// 		await dispatch(
+	// 			loginThunk({
+	// 				email,
+	// 				password,
+	// 			})
+	// 		).unwrap()
 
-	// useEffect(() => {
-	// 	isAuth && navigate('/')
-	// }, [isAuth, navigate])
+	// 	} catch (error) {
+	// 		toast.error(error)
+	// 	}
+	// }
+	// const formData = new FormData()
+	// formData.append('data',{})
+	// fetch('', {
+	// 	body: formData,
+	// 	headers: {
+	// 		'content-type':'multipart/json'
+	// 	},
+	// })
 
 	return (
 		<div className='container mt-3'>
@@ -96,13 +92,19 @@ const LoginPage = () => {
 					/>
 				</div>
 
-				<button
-					type='submit'
-					className='btn btn-primary me-3'
-					disabled={!email || !password}
-				>
-					Login
-				</button>
+				{isLoading ? (
+					<div className='spinner-border' role='status'>
+						<span className='visually-hidden'>Loading...</span>
+					</div>
+				) : (
+					<button
+						type='submit'
+						className='btn btn-primary me-3'
+						disabled={!email || !password}
+					>
+						Login
+					</button>
+				)}
 				<Link to='/signUp'>Sign Up</Link>
 			</form>
 		</div>

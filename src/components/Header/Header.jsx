@@ -1,9 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { logOut } from '../../store/auth/slice'
+import { useAuth } from '../../context/authContext'
+import { useLazyProfileQuery } from '../../store/authApi'
+import { useEffect } from 'react'
 
-const Header = ({ open }) => {
-	const { access_token: isAuth, profile } = useSelector((state) => state.auth)
+const Header = () => {
+	const { isAuth } = useAuth()
+	const [getProfile, { data: profile }] = useLazyProfileQuery()
+	useEffect(() => {
+		isAuth && getProfile()
+	}, [getProfile, isAuth])
+
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	return (
